@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>Maliyyə Paneli</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Maliyyə Paneli</h1>
+        <nav>
+            <a href="/" class="nav-btn-link">Əsas Səhifə</a>
+            <a href="/logout" class="logout-btn">Çıxış</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Yeni Əməliyyat</h2>
+        <div class="form-container" style="max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: var(--shadow-md);">
+            <form id="transactionForm">
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <label for="transType">Növ:</label>
+                        <select id="transType" required>
+                            <option value="məxaric">Məxaric (Xərc)</option>
+                            <option value="mədaxil">Mədaxil (Gəlir)</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <label for="transDate">Tarix:</label>
+                        <input type="date" id="transDate" required>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 20px; margin-top: 15px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <label for="transAmount">Məbləğ:</label>
+                        <input type="number" step="0.01" id="transAmount" required>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <label for="transCurrency">Valyuta:</label>
+                        <select id="transCurrency" required>
+                            <option value="AZN">AZN</option>
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <label for="transCategory">Kateqoriya:</label>
+                    <input type="text" id="transCategory" required placeholder="Məs: Ofis xərcləri, Komissiya...">
+                </div>
+                <div style="margin-top: 15px;">
+                    <label for="transDescription">Təsvir:</label>
+                    <textarea id="transDescription" rows="2"></textarea>
+                </div>
+                <button type="submit" class="add-order-btn" style="margin-top: 20px;">Əlavə Et</button>
+            </form>
+            <div id="formMessage" style="margin-top: 15px; font-weight: bold;"></div>
+        </div>
+
+        <h2 style="margin-top: 40px;">Bütün Əməliyyatlar</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tarix</th>
+                        <th>Növ</th>
+                        <th>Kateqoriya</th>
+                        <th>Təsvir</th>
+                        <th>Məbləğ</th>
+                        <th>Əlavə edən</th>
+                    </tr>
+                </thead>
+                <tbody id="transactionsTableBody">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+    <script src="finance.js"></script>
+</body>
+</html>

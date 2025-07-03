@@ -1,0 +1,37 @@
+{
+  "sales_manager": {
+    "canEditOrder": false,
+    "canEditFinancials": true,
+    "canDeleteOrder": true
+  },
+  "reservation_role": {
+    "canEditOrder": true,
+    "canEditFinancials": true,
+    "canDeleteOrder": true
+  },
+  "i̇t": {
+    "canEditOrder": true,
+    "canEditFinancials": true,
+    "canDeleteOrder": true
+  },
+  "finance": {
+    "canEditOrder": true,
+    "canEditFinancials": true,
+    "canDeleteOrder": false
+  },
+  "yoxlama": {
+    "canEditOrder": false,
+    "canEditFinancials": false,
+    "canDeleteOrder": false
+  },
+  "İT şöbə": {
+    "canEditOrder": true,
+    "canEditFinancials": true,
+    "canDeleteOrder": true
+  },
+  "Finance": {
+    "canEditOrder": false,
+    "canEditFinancials": false,
+    "canDeleteOrder": false
+  }
+}

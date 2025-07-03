@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Paneli</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .portal-selection-container, #ownerPasswordModal, #ownerMenuView, #ownerCreateUserModal {
+            text-align: center;
+        }
+        .portal-selection-container h1 { font-size: 2.5em; margin-bottom: 15px; }
+        .portal-selection-container p { font-size: 1.1em; color: #6c757d; margin-bottom: 40px; }
+        .portal-btn {
+            background-color: #007bff; color: white; border: none; padding: 20px 40px;
+            font-size: 1.2em; border-radius: 10px; cursor: pointer; margin: 10px;
+            transition: transform 0.2s, box-shadow 0.2s; width: 250px;
+        }
+        .portal-btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .portal-btn.altgoing { background-color: #28a745; }
+        .portal-btn.owner { background-color: #6c757d; }
+        .portal-btn.create-user { background-color: #fd7e14; } /* Narıncı rəng */
+        .portal-btn.finance { background-color: #17a2b8; } /* Finance üçün yeni rəng */
+        
+        .hidden { display: none; }
+
+        .owner-menu-container .portal-btn {
+            display: block;
+            margin: 15px auto;
+        }
+        .modal-content-owner-create {
+             background-color: #ffffff; padding: 35px 45px; border-radius: 10px; 
+             box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 500px; 
+             text-align: left; position: relative;
+        }
+    </style>
+</head>
+<body class="login-page-body">
+
+    <div id="portalSelection" class="portal-selection-container">
+        <h1>Xoş Gəlmisiniz!</h1>
+        <p>Zəhmət olmasa, daxil olmaq istədiyiniz bölməni seçin.</p>
+        <button class="portal-btn incoming" data-portal="incoming">INCOMING GİRİŞ</button>
+        <button class="portal-btn altgoing" data-portal="altgoing">ALTGOING GİRİŞ</button>
+        <button class="portal-btn finance" data-portal="finance">FINANCE GİRİŞİ</button>
+        <button id="showOwnerLoginBtn" class="portal-btn owner">OWNER GİRİŞİ</button>
+    </div>
+
+    <div id="loginContainer" class="login-container hidden">
+        <h1 id="loginHeader">Giriş</h1>
+        <form action="/login" method="POST">
+            <input type="hidden" id="department" name="department" value="">
+            <div class="input-group">
+                <label for="username">İstifadəçi adı:</label>
+                <input type="text" id="username" name="username" required autocomplete="username">
+            </div>
+            <div class="input-group">
+                <label for="password">Şifrə:</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password">
+            </div>
+            <button type="submit">Daxil Ol</button>
+        </form>
+        <a href="#" class="back-to-portal" style="display: block; margin-top: 15px;">&larr; Geri Qayıt</a>
+    </div>
+    
+    <div id="ownerPasswordModal" class="login-container hidden">
+        <h1>Owner Təsdiqi</h1>
+        <form id="ownerVerifyForm">
+            <div class="input-group">
+                <label for="modalOwnerPassword">Owner Parolunu daxil edin:</label>
+                <input type="password" id="modalOwnerPassword" required>
+            </div>
+            <button type="submit">Təsdiq Et</button>
+        </form>
+        <div id="modalErrorMessage" style="color: red; margin-top: 10px;"></div>
+        <a href="#" class="back-to-portal" style="display: block; margin-top: 15px;">&larr; Geri Qayıt</a>
+    </div>
+
+    <div id="ownerMenuView" class="login-container hidden owner-menu-container">
+        <h1>Owner Paneli</h1>
+        <p>Aşağıdakı seçimlərdən birini edin:</p>
+        <button id="showCreateUserBtn" class="portal-btn create-user">Yeni İstifadəçi Yarat</button>
+        <button id="managePermissionsBtn" class="portal-btn owner">İcazələrin İdarəsi</button>
+        <button id="loginAsOwnerIncoming" class="portal-btn incoming">Incoming Sisteminə Giriş</button>
+        <button id="loginAsOwnerAltgoing" class="portal-btn altgoing">Altgoing Sisteminə Giriş</button>
+        <a href="#" class="back-to-portal" style="display: block; margin-top: 15px;">&larr; Geri Qayıt</a>
+    </div>
+
+    <div id="ownerCreateUserModal" class="modal hidden" style="align-items: center; justify-content: center;">
+        <div class="modal-content-owner-create">
+            <span class="close-button" id="closeCreateUserModalBtn">&times;</span>
+            <h3>Yeni İstifadəçi Yarat</h3>
+            <form id="ownerCreateUserForm">
+                <label>Ad Soyad:</label>
+                <input type="text" id="regDisplayName" required>
+                <label>İstifadəçi Adı (login):</label>
+                <input type="text" id="regUsername" required>
+                 <label>E-poçt:</label>
+                <input type="email" id="regEmail" required>
+                <label>Şifrə:</label>
+                <input type="password" id="regPassword" required>
+                <label>Şöbə (Department):</label>
+                <select id="regDepartment" required>
+                    <option value="" disabled selected>Şöbə seçin</option>
+                    <option value="incoming">Incoming</option>
+                    <option value="altgoing">Altgoing</option>
+                    <option value="finance">Finance</option>
+                </select>
+                <label>Vəzifə (Rol):</label>
+                <input type="text" id="regRole" required placeholder="Məs: sales_manager">
+                <button type="submit">İstifadəçini Yarat</button>
+            </form>
+            <div id="regMessage" style="text-align: center; margin-top: 15px; font-weight: bold;"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const portalSelection = document.getElementById('portalSelection');
+            const loginContainer = document.getElementById('loginContainer');
+            const ownerPasswordModal = document.getElementById('ownerPasswordModal');
+            const ownerMenuView = document.getElementById('ownerMenuView');
+            const ownerCreateUserModal = document.getElementById('ownerCreateUserModal');
+
+            const loginHeader = document.getElementById('loginHeader');
+            const departmentInput = document.getElementById('department');
+            const ownerVerifyForm = document.getElementById('ownerVerifyForm');
+            const modalErrorMessage = document.getElementById('modalErrorMessage');
+            const ownerCreateUserForm = document.getElementById('ownerCreateUserForm');
+            const regMessage = document.getElementById('regMessage');
+
+            const showView = (viewToShow) => {
+                [portalSelection, loginContainer, ownerPasswordModal, ownerMenuView].forEach(view => {
+                    view.classList.add('hidden');
+                });
+                if(ownerCreateUserModal) ownerCreateUserModal.classList.add('hidden');
+                
+                if (viewToShow) {
+                    viewToShow.classList.remove('hidden');
+                }
+            };
+            
+            document.querySelectorAll('.back-to-portal').forEach(btn => {
+                btn.addEventListener('click', (e) => { e.preventDefault(); showView(portalSelection); });
+            });
+
+            document.querySelectorAll('.portal-btn[data-portal]').forEach(button => {
+                button.addEventListener('click', () => {
+                    const portal = button.dataset.portal;
+                    departmentInput.value = portal;
+                    loginHeader.textContent = portal.toUpperCase() + " Giriş";
+                    showView(loginContainer);
+                });
+            });
+
+            document.getElementById('showOwnerLoginBtn').addEventListener('click', () => showView(ownerPasswordModal));
+            
+            ownerVerifyForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                modalErrorMessage.textContent = '';
+                const password = document.getElementById('modalOwnerPassword').value;
+                try {
+                    const response = await fetch('/api/verify-owner', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ password })
+                    });
+                    if (!response.ok) throw new Error((await response.json()).message || 'Parol yanlışdır');
+                    showView(ownerMenuView);
+                } catch (error) {
+                    modalErrorMessage.textContent = error.message;
+                }
+            });
+
+            document.getElementById('managePermissionsBtn').addEventListener('click', () => { window.location.href = '/permissions.html'; });
+
+            const ownerLoginHandler = async (department) => {
+                try {
+                    const response = await fetch('/api/login-as-owner', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ department })
+                    });
+                    if (!response.ok) {
+                        const err = await response.json();
+                        throw new Error(err.message || 'Sistemə daxil olmaq mümkün olmadı.');
+                    }
+                    window.location.href = '/';
+                } catch (error) {
+                    alert(error.message);
+                }
+            };
+            document.getElementById('loginAsOwnerIncoming').addEventListener('click', () => ownerLoginHandler('incoming'));
+            document.getElementById('loginAsOwnerAltgoing').addEventListener('click', () => ownerLoginHandler('altgoing'));
+
+            document.getElementById('showCreateUserBtn').addEventListener('click', () => {
+                ownerCreateUserModal.style.display = 'flex';
+                ownerCreateUserModal.classList.remove('hidden');
+            });
+            
+            document.getElementById('closeCreateUserModalBtn').addEventListener('click', () => {
+                ownerCreateUserModal.classList.add('hidden');
+            });
+            
+            ownerCreateUserModal.addEventListener('click', (e) => {
+                 if (e.target === ownerCreateUserModal) {
+                    ownerCreateUserModal.classList.add('hidden');
+                 }
+            });
+
+            ownerCreateUserForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                regMessage.textContent = '';
+
+                const userData = {
+                    displayName: document.getElementById('regDisplayName').value,
+                    username: document.getElementById('regUsername').value,
+                    email: document.getElementById('regEmail').value,
+                    password: document.getElementById('regPassword').value,
+                    role: document.getElementById('regRole').value,
+                    department: document.getElementById('regDepartment').value
+                };
+
+                try {
+                    const response = await fetch('/api/users/create', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(userData)
+                    });
+                    const result = await response.json();
+                    if (!response.ok) throw new Error(result.message || 'Xəta baş verdi.');
+                    
+                    regMessage.style.color = 'green';
+                    regMessage.textContent = result.message;
+                    ownerCreateUserForm.reset();
+                    setTimeout(() => {
+                         ownerCreateUserModal.classList.add('hidden');
+                         regMessage.textContent = '';
+                    }, 2000);
+                } catch (error) {
+                    regMessage.style.color = 'red';
+                    regMessage.textContent = error.message;
+                }
+            });
+
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('error')) {
+                const portal = urlParams.get('department') || 'incoming';
+                const errorCode = urlParams.get('error');
+                let message = 'Giriş zamanı naməlum xəta.';
+                
+                if (errorCode === '1') {
+                    message = 'Bu istifadəçi adı mövcud deyil.';
+                } else if (errorCode === '2') {
+                    message = 'Daxil edilən şifrə yanlışdır.';
+                } else if (errorCode === '3') {
+                    const expectedDept = urlParams.get('expected');
+                    message = `Bu istifadəçi "${expectedDept}" şöbəsinə aiddir. Zəhmət olmasa, düzgün portaldan daxil olun.`;
+                } else if (errorCode === '4') {
+                    message = 'Sessiya yadda saxlanılmadı. Zəhmət olmasa, admin ilə əlaqə saxlayın.';
+                }
+
+                const departmentInput = document.getElementById('department');
+                const loginHeader = document.getElementById('loginHeader');
+                departmentInput.value = portal;
+                loginHeader.textContent = portal.toUpperCase() + " Giriş";
+                
+                const errorMessageContainer = document.createElement('div');
+                errorMessageContainer.innerHTML = `<div class="error-message">${message}</div>`;
+                loginContainer.insertBefore(errorMessageContainer, document.querySelector('#loginContainer .back-to-portal'));
+                
+                 showView(loginContainer);
+            }
+        });
+    </script>
+</body>
+</html>

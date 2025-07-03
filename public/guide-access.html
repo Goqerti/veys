@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bələdçi Girişi</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+        }
+        .access-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        .access-container h1 {
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        .access-container input {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1.2em;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .access-container button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--primary-action-color);
+            color: white;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        #error-message {
+            color: var(--danger-color);
+            margin-top: 15px;
+            font-weight: bold;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="access-container">
+        <h1>Bələdçi Paneli</h1>
+        <p>Sizə verilən unikal tur kodunu daxil edin.</p>
+        <form id="accessForm">
+            <input type="text" id="accessCodeInput" placeholder="AZE-XXXX" required>
+            <button type="submit">Daxil Ol</button>
+        </form>
+        <p id="error-message"></p>
+    </div>
+    <script src="guide-access.js"></script>
+</body>
+</html>

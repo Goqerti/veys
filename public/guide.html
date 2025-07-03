@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bələdçi Paneli</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        body { 
+            background-color: #f0f2f5; 
+            font-family: 'Inter', sans-serif; 
+            font-size: 16px; 
+            margin: 0;
+        }
+        header {
+            background-color: #fff;
+            padding: 15px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #333;
+        }
+        main { 
+            padding: 15px; 
+            max-width: 800px; 
+            margin: auto; 
+        }
+        .tour-card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            padding: 20px;
+            border-left: 6px solid #007bff; /* Mavi xətt */
+        }
+        .tour-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid #eee; 
+            padding-bottom: 10px; 
+            margin-bottom: 15px; 
+        }
+        .tour-header h2 { 
+            font-size: 1.2em; 
+            margin: 0; 
+            color: #333; 
+        }
+        .tour-status { 
+            font-weight: 600; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.8em; 
+            text-transform: uppercase;
+        }
+        .status-Gözləmədə { background-color: #ffc107; color: #333; }
+        .status-Davam-edir { background-color: #28a745; color: white; }
+        .status-Bitib { background-color: #6c757d; color: white; }
+        .info-group { 
+            margin-bottom: 15px; 
+            line-height: 1.6;
+        }
+        .info-group label { 
+            font-weight: 600; 
+            color: #6c757d; 
+            font-size: 0.9em; 
+            display: block; 
+            margin-bottom: 4px; 
+        }
+        .info-group p, .info-group a { 
+            margin: 0; 
+            font-size: 1em; 
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
+        }
+        .info-group ul { 
+            margin: 0; 
+            padding-left: 20px; 
+            list-style-type: none; 
+        }
+        .info-group ul li { 
+            margin-bottom: 8px; 
+        }
+        .info-group a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .info-group a:hover {
+            text-decoration: underline;
+        }
+        .actions-bar { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+            gap: 10px; 
+            margin-top: 20px; 
+        }
+        .action-button { 
+            padding: 12px; 
+            border: none; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            text-align: center; 
+            text-decoration: none; 
+            color: white; 
+            font-size: 0.9em; 
+            transition: opacity 0.2s;
+        }
+        .action-button:hover {
+            opacity: 0.9;
+        }
+        .action-button i {
+            margin-right: 8px;
+        }
+        .btn-start { background-color: #28a745; } 
+        .btn-end { background-color: #dc3545; }
+        .btn-checkin { background-color: #17a2b8; } 
+        .btn-expense { background-color: #fd7e14; }
+        .logout-btn-guide { 
+            display: block; 
+            text-align: center; 
+            padding: 15px; 
+            background-color: #343a40; 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 600; 
+            margin: 20px 10px;
+            border-radius: 8px;
+        }
+        #offline-indicator { 
+            display: none; 
+            text-align: center; 
+            padding: 10px; 
+            background-color: #ffc107; 
+            font-weight: bold; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
+    </style>
+</head>
+<body>
+    <div id="offline-indicator">Offline rejimdəsiniz. Məlumatlar son yükləmədən göstərilir.</div>
+    <header>
+        <h1 id="guide-welcome">Bələdçi Paneli</h1>
+    </header>
+    <main id="tour-list">
+        <p style="text-align:center; padding: 20px;">Turlarınız yüklənir...</p>
+    </main>
+    <a href="/logout" class="logout-btn-guide">Sistemdən Çıxış</a>
+
+    <script src="/guide.js"></script>
+</body>
+</html>
